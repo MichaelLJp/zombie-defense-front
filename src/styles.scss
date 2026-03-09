@@ -1,0 +1,226 @@
+/* You can add global styles to this file, and also import other style files */
+// ═══════════════════════════════════════════════════════════
+// 🎮 GLOBAL CYBERPUNK STYLES (OPCIONAL)
+// Agrega estos estilos a tu styles.scss global
+// ═══════════════════════════════════════════════════════════
+
+// Variables globales
+:root {
+  // Colores Cyan (estructura, títulos, borders)
+  --cyan-bright: #38bdf8;
+  --cyan-light: #7dd3fc;
+  --cyan-dark: #0ea5e9;
+  
+  // Colores Verde (éxito, OVER, BAJO)
+  --green-neon: #00ff88;
+  --green-bright: #4ade80;
+  --green-dark: #16a34a;
+  
+  // Colores Rojo (acción, alertas, UNDER, ALTO)
+  --red-danger: #ef4444;
+  --red-bright: #f87171;
+  --red-dark: #dc2626;
+  
+  // Neutrales
+  --bg-dark: #0a0e1a;
+  --bg-darker: #0d1219;
+  --gray-text: #64748b;
+}
+
+// Fuentes recomendadas
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+
+// Body con fondo cyberpunk
+body {
+  background: linear-gradient(135deg, #0a0e1a 0%, #0d1219 50%, #0a0e1a 100%);
+  background-attachment: fixed;
+  color: #e2e8f0;
+  font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  
+  // Efecto de grid cyberpunk en el fondo
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  // Efecto de vignette
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// Asegurar que el contenido esté por encima del fondo
+.container, .row, .col-md-5, .col-md-7 {
+  position: relative;
+  z-index: 1;
+}
+
+// Scrollbar global personalizado
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1219;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  
+  &:hover {
+    background: #38bdf8;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+  }
+}
+
+// Selección de texto con estilo neón
+::selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  text-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+}
+
+::-moz-selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  text-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+}
+
+// Animación de carga opcional (si usas loading states)
+@keyframes cyber-loading {
+  0%, 100% {
+    box-shadow: 0 0 5px #38bdf8;
+  }
+  50% {
+    box-shadow: 0 0 20px #38bdf8, 0 0 30px #7dd3fc;
+  }
+}
+
+.cyber-loader {
+  border: 3px solid transparent;
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite, cyber-loading 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Utilidades de color neón
+.text-cyan {
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.text-neon-green {
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.text-green-bright {
+  color: #4ade80;
+  text-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+}
+
+.text-red {
+  color: #ef4444;
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+.border-cyan {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.border-neon {
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.border-red {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.glow-neon {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.glow-red {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+// Bootstrap overrides para mantener consistencia
+.text-success {
+  color: #00ff88 !important;
+}
+
+.bg-success {
+  background-color: rgba(0, 255, 136, 0.1) !important;
+}
+
+.border-success {
+  border-color: #00ff88 !important;
+}
+
+// Badges y pills con estilo cyberpunk
+.badge {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  padding: 0.5em 1em;
+  
+  &.bg-success {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(74, 222, 128, 0.1)) !important;
+    color: #00ff88;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+  }
+}
+
+// Tooltips con estilo cyberpunk (si usas Bootstrap tooltips)
+.tooltip {
+  font-family: 'Courier New', monospace;
+  
+  .tooltip-inner {
+    background: #111827;
+    border: 1px solid #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    color: #00ff88;
+  }
+  
+  &.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: #00ff88;
+  }
+  
+  &.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: #00ff88;
+  }
+}

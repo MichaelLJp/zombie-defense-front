@@ -1,0 +1,188 @@
+<div class="container py-5">
+  <div class="mb-5">
+    <h2 class="neon-title">
+      <span class="fs-4 me-2">🧟‍♂️</span> ZombieDefense Analytics 
+      <span class="version-badge">V1.0</span>
+    </h2>
+  </div>
+
+  <div class="row g-4">
+    <!-- Panel de Parámetros -->
+    <div class="col-md-5">
+      <div class="sleek-card">
+        <h6 class="card-subtitle">PARÁMETROS DE SIMULACIÓN</h6>
+        
+        <form [formGroup]="defenseForm" (ngSubmit)="calculate()">
+          <app-ui-input 
+            label="BALAS DISPONIBLES" 
+            [control]="bulletsControl">
+          </app-ui-input>
+
+          <div class="mt-4">
+            <app-ui-input 
+              label="SEGUNDOS DE VIDA" 
+              [control]="timeControl">
+            </app-ui-input>
+          </div>
+
+          <button type="submit" class="neon-btn w-100 mt-5" [disabled]="defenseForm.invalid">
+            <span>EJECUTAR SIMULACIÓN</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Panel de Resultados e Historial -->
+    <div class="col-md-7">
+      @if(currentResult){
+         <div class="sleek-card result-card mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="result-title mb-0">
+                    <span class="me-2">✓</span>RESULTADO ÓPTIMO
+                </h6>
+                <span class="result-badge">
+                    EFICIENCIA MÁXIMA
+                </span>
+                </div>
+                <div class="result-score mb-2">
+                {{currentResult.puntajeTotal}}
+                <span class="fs-6 text-muted fw-normal ms-2" style="text-shadow:none;">
+                    PTS
+                </span>
+                </div>
+                <div class="small text-muted mb-3" style="font-family: 'Courier New', monospace;">
+                <span class="me-3" style="color:#38bdf8;">
+                    🎯 Balas usadas: {{currentResult.balasUsadas}}
+                </span>
+                <span style="color:#38bdf8;">
+                    ⏱ Tiempo usado: {{currentResult.tiempoUsado}}s
+                </span>
+                </div>
+
+                <!-- Zombies eliminados -->
+                <div class="result-details">
+                    <!-- Header desplegable -->
+                    <div class="zombie-header"
+                        (click)="toggleZombies()">
+                        <span style="color:#38bdf8;">
+                        🧟 Zombies eliminados
+                        </span>
+                        <span class="zombie-count">
+                        {{currentResult.zombiesEliminados.length}}
+                        </span>
+                        <span class="zombie-toggle">
+                        {{showZombies ? '▲' : '▼'}}
+                        </span>
+                    </div>
+                    <!-- Lista -->
+                    @if (showZombies) {
+                        <ul class="result-zombie-list mt-2">
+                        @for (z of currentResult.zombiesEliminados; track z.tipo) {
+                            <li class="result-zombie-item">
+                            <div class="d-flex justify-content-between">
+                                <span>
+                                <span style="color:#00ff88;">
+                                    {{z.tipo}}
+                                </span>
+                                <span class="ms-2 small text-cyan">
+                                    Nivel {{z.nivelAmenaza}}
+                                </span>
+                                </span>
+                                <span style="color:#38bdf8;">
+                                +{{z.puntaje}} pts
+                                </span>
+                            </div>
+                            <div class="small text-cyan mt-1"
+                                style="font-family:'Courier New', monospace;">
+                                🎯 {{z.balasUsadas}} balas • ⏱ {{z.tiempoUsado}}s
+                            </div>
+                            </li>
+                        }
+                        </ul>
+                    }
+                    </div>
+                </div>
+      }
+    
+ <div class="sleek-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h6 class="card-subtitle mb-0">HISTORIAL DE EJECUCIONES</h6>
+          <span class="text-muted small justify-content-center" style="font-family: 'Courier New', monospace;">
+            <span style="color: #00ff88;">{{history.length}} registros</span>
+          </span>
+          <div class="d-flex gap-2 mb-3">
+            <button 
+                class="btn btn-outline-info btn-sm"
+                (click)="sortByBullets()">
+                🎯 Ranking por balas
+            </button>
+
+            <button 
+                class="btn btn-outline-info btn-sm"
+                (click)="sortByTime()">
+                ⏱ Ranking por tiempo
+            </button>
+            </div>
+        </div>
+        
+        <ul class="history-list">
+          @if (history.length === 0) {
+            <div class="empty-state">
+              <span class="empty-icon d-block">📡</span>
+              <p class="empty-text mb-0">
+                Sin conexión a la base de datos<br>o sin registros disponibles.
+              </p>
+            </div>
+          }
+          @for (item of history; track item.id) {
+            <li (click)="toggleHistoryItem(item.id)" class="history-item">
+                
+            <div class="d-flex justify-content-between align-items-center">
+                <span>
+                    <span style="color: #38bdf8;">RUN_ID:</span> 
+                    <span style="color: #9ba7a3;">#{{item.id | number:'3.0-0'}}</span>
+                </span>
+
+                <span class="score ms-2 me-2"> {{item.puntajeLogrado}} pts</span>
+                <div style="color:#38bdf8;">
+                🎯
+                <span style="color:#38bdf8;">{{item.balasDisponibles}}</span>
+                  ⏱ 
+                <span style="color:#38bdf8;">{{item.tiempoDisponible}}s</span>
+                </div>
+            </div>
+            @if (selectedHistoryId === item.id) {
+            <div class="history-details mt-2">
+
+                <div style="color:#38bdf8;">
+                🎯 Balas disponibles: 
+                <span style="color:#00ff88;">{{item.balasDisponibles}}</span>
+                </div>
+
+                <div style="color:#38bdf8;">
+                ⏱ Tiempo disponible: 
+                <span style="color:#00ff88;">{{item.tiempoDisponible}}s</span>
+                </div>
+
+                <div class="mt-2">
+                <div style="color:#38bdf8;">🧟 Zombies eliminados:</div>
+
+                <ul>
+                    @for (z of item.eliminados; track z.nombre) {
+                    <li>
+                        {{z.nombre}} → {{z.cantidad}}
+                    </li>
+                    }
+                </ul>
+                </div>
+            </div>
+            }
+            </li>
+          }
+        </ul>
+      </div>
+  
+
+    </div>
+  </div>
+</div>

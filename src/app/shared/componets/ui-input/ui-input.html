@@ -1,0 +1,18 @@
+<div class="mb-3">
+  <label class="form-label">
+    {{ label }}
+  </label>
+  
+  <input 
+    [type]="type"
+    [formControl]="control"
+    [placeholder]="placeholder"
+    class="form-control form-control-lg custom-zombie-input"
+  >
+
+  @if (control.invalid && control.touched) {
+    <div class="validation-message">
+      Requerido o valor fuera de rango
+    </div>
+  }
+</div>

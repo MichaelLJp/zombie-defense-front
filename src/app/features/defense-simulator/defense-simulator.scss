@@ -1,0 +1,465 @@
+// ═══════════════════════════════════════════════════════════
+// 🧟 ZOMBIE DEFENSE ANALYTICS - CYBERPUNK THEME
+// ═══════════════════════════════════════════════════════════
+
+// Variables de color cyberpunk
+$bg-primary: #0a0e1a;
+$bg-secondary: #0d1219;
+$bg-card: #111827;
+$border-color: #1e293b;
+
+// Colores principales de la paleta
+$cyan-bright: #38bdf8;        // Azul cyan (títulos principales)
+$cyan-light: #7dd3fc;         // Cyan claro
+$cyan-dark: #0ea5e9;          // Cyan oscuro
+
+$green-neon: #00ff88;         // Verde neón (OVER, BAJO, éxito)
+$green-bright: #00ff88b3;       // Verde brillante
+$green-dark: #16a34a;         // Verde oscuro
+
+$red-danger: #ef4444;         // Rojo (EJECUTAR, ALTO, UNDER, alertas)
+$red-bright: #f87171;         // Rojo brillante
+$red-dark: #dc2626;           // Rojo oscuro
+
+$warning-yellow: #fbbf24;     // Amarillo para advertencias
+$gray-text: #64748b;          // Gris para textos secundarios
+
+// Efecto de scanlines global
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes neon-pulse-cyan {
+  0%, 100% { 
+    text-shadow: 
+      0 0 7px rgba(56, 189, 248, 0.8),
+      0 0 10px rgba(56, 189, 248, 0.6),
+      0 0 21px rgba(56, 189, 248, 0.4);
+  }
+  50% { 
+    text-shadow: 
+      0 0 10px rgba(56, 189, 248, 1),
+      0 0 20px rgba(56, 189, 248, 0.8),
+      0 0 30px rgba(56, 189, 248, 0.6);
+  }
+}
+
+@keyframes border-glow-green {
+  0%, 100% { border-color: #1a3a2e; }
+  50% { border-color: $green-neon; }
+}
+
+// Contenedor principal
+.container {
+  background: linear-gradient(135deg, #0a0e1a 0%, #0d1219 100%);
+  min-height: 100vh;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+      transparent 0%,
+      $cyan-bright 50%,
+      transparent 100%
+    );
+    animation: scanline 3s linear infinite;
+    z-index: 1;
+  }
+}
+
+// Tarjeta principal con efecto cyberpunk
+.sleek-card {
+  background: linear-gradient(135deg, #111827 0%, #0d1219 100%);
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(56, 189, 248, 0.1);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      $cyan-bright 50%,
+      transparent 100%
+    );
+    opacity: 0.6;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(56, 189, 248, 0.02) 2px,
+      rgba(56, 189, 248, 0.02) 4px
+    );
+    pointer-events: none;
+  }
+}
+
+// Subtítulo de tarjeta
+.card-subtitle {
+  color: $gray-text;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  padding-left: 12px;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 80%;
+    background: linear-gradient(180deg, $cyan-bright, $cyan-dark);
+    box-shadow: 0 0 10px $cyan-bright;
+  }
+}
+
+// Título principal con efecto neón cyan
+.neon-title {
+  color: $cyan-bright;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  font-size: 2.5rem;
+  animation: neon-pulse-cyan 3s ease-in-out infinite;
+  font-family: 'Arial Black', sans-serif;
+  position: relative;
+  display: inline-block;
+
+  .version-badge {
+    font-size: 0.35em;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.1));
+    color: $cyan-bright;
+    padding: 6px 12px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 15px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    box-shadow: 
+      0 0 10px rgba(56, 189, 248, 0.3),
+      inset 0 0 10px rgba(56, 189, 248, 0.1);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+  }
+}
+
+// Botón neón cyberpunk con rojo
+.neon-btn {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+  color: $red-danger;
+  border: 2px solid $red-danger;
+  border-radius: 6px;
+  padding: 14px 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 
+    0 0 10px rgba(239, 68, 68, 0.3),
+    inset 0 0 10px rgba(239, 68, 68, 0.1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+    box-shadow: 
+      0 0 20px rgba(239, 68, 68, 0.6),
+      0 0 40px rgba(239, 68, 68, 0.3),
+      inset 0 0 20px rgba(239, 68, 68, 0.2);
+    color: #fff;
+    transform: translateY(-2px);
+    
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    border-color: #1e293b;
+    color: #334155;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  
+  span {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// Lista de historial con efecto cyberpunk
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  
+  // Scrollbar personalizado
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #0d1219;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, $cyan-bright, $cyan-dark);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    
+    &:hover {
+      background: $cyan-bright;
+    }
+  }
+
+  li {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.05) 0%, transparent 100%);
+    margin-bottom: 12px;
+    padding: 16px 20px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid $cyan-bright;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: $cyan-bright;
+      box-shadow: 0 0 10px $cyan-bright;
+    }
+
+    &:hover {
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.1) 0%, transparent 100%);
+      transform: translateX(5px);
+      box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(56, 189, 248, 0.2);
+      
+      .score {
+        text-shadow: 0 0 10px $green-neon;
+      }
+    }
+
+    .score {
+      color: $green-neon;
+      font-weight: 900;
+      font-size: 1.2rem;
+      text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+      letter-spacing: 1px;
+    }
+  }
+}
+
+// Tarjeta de resultado con verde neón
+.result-card {
+  border-left: 4px solid $green-neon !important;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 255, 136, 0.05) 100%);
+  animation: border-glow-green 2s ease-in-out infinite;
+  
+  .result-title {
+    color: $green-neon;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  }
+  
+  .result-score {
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: 'Courier New', monospace;
+    text-shadow: 
+      0 0 10px $green-neon,
+      0 0 20px rgba(0, 255, 136, 0.5);
+    line-height: 1;
+  }
+  
+  .result-badge {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(74, 222, 128, 0.1));
+    color: $green-neon;
+    border: 1px solid $green-neon;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    font-family: 'Arial', sans-serif;
+  }
+}
+
+// Estado vacío
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #475569;
+  
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+    filter: grayscale(1);
+  }
+  
+  .empty-text {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+}
+
+// Clases de utilidad para badges y etiquetas
+.badge-alto {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+  color: $red-danger;
+  border: 1px solid $red-danger;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+  font-family: 'Arial', sans-serif;
+}
+
+.badge-bajo {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(74, 222, 128, 0.1));
+  color: $green-neon;
+  border: 1px solid $green-neon;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  font-family: 'Arial', sans-serif;
+}
+
+// Estilos para texto OVER (verde) y UNDER (rojo)
+.text-over {
+  color: $green-neon;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+}
+
+.text-under {
+  color: $red-danger;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+}
+
+.text-seguro {
+  color: $cyan-bright;
+  font-weight: 700;
+}
+
+.history-item {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.history-item:hover {
+  background: rgba(0,255,136,0.08);
+}
+
+.history-details {
+  border-left: 2px solid #00ff88;
+  padding-left: 10px;
+  font-size: 0.9rem;
+}
+.result-zombie-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.result-zombie-item{
+  border-left:2px solid #00ff88;
+  padding:8px 10px;
+  margin-bottom:8px;
+  background:rgba(0,255,136,0.05);
+  border-radius:6px;
+}
+
+.result-score{
+  font-size:2rem;
+  font-weight:700;
+  color:#00ff88;
+}
