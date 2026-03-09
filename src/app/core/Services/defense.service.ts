@@ -9,7 +9,7 @@ import { DefenseResponse,HistoricalStrategy } from "../Models/defense.model";
 })
 export class DefenseService{
     private http = inject(HttpClient);
-    private apiurl = 'https://localhost:7150/api/DefenseZombie';
+    private apiurl = 'https://zombie-defense-api-bueggkfyexa8eegd.canadacentral-01.azurewebsites.net/api/DefenseZombie';
 
     getOptimalStrategy(bullets:number,time:number): Observable<DefenseResponse>{
         const body ={
