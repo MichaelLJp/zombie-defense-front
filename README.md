@@ -1,59 +1,59 @@
-# ZombieDefenseUi
+🧟‍♂️ ZombieDefense Analytics - Frontend
+Este es el panel de control táctico desarrollado en Angular para el sistema de defensa contra hordas de zombies. Permite a los comandantes de campo calcular estrategias óptimas de disparo basadas en recursos limitados (balas y tiempo) y visualizar el histórico de ejecuciones.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+🛠️ Tecnologías Utilizadas
+Framework: Angular 21.2.0 (Core, Common, Forms).
 
-## Development server
+Gestor de Paquetes: npm 11.6.2.
 
-To start a local development server, run:
+Reactive Forms: Para la gestión precisa de los parámetros de simulación.
 
-```bash
+RxJS: Implementación de flujos reactivos con BehaviorSubject y switchMap para evitar ráfagas de peticiones (Race Conditions).
+
+Bootstrap 5 + SCSS Custom: Estilizado con temática Dark/Neon para una experiencia inmersiva.
+
+🏗️ Arquitectura y Patrones
+
+- Arquitectura Modular: El proyecto sigue una estructura modular para facilitar el mantenimiento:
+
+    src/app/core: Contiene servicios singleton, modelos globales e interceptores de seguridad.
+
+    src/app/features: Módulos funcionales como el simulador de defensa (defense-simulator).
+
+    src/app/shared: Componentes reutilizables (ej. ui-input) y pipes.
+
+
+- Native Control Flow: Uso de las directivas @if y @for de Angular 21 para un renderizado optimizado y tipos seguros en el historial de ejecuciones.
+
+- Inyección de Dependencias: Uso extensivo de la función inject() para una gestión de dependencias más limpia y desacoplada.
+
+
+🔐 Seguridad e Interceptores
+El sistema utiliza un AuthInterceptor que inyecta automáticamente la cabecera X-API-KEY en cada petición saliente hacia el backend de .NET. Esto garantiza que solo los terminales autorizados por Z-SAFE puedan acceder a los datos tácticos.
+
+🚀 Instalación y Ejecución
+Instalar dependencias:
+
+Bash
+npm install
+Configurar el entorno:
+Asegúrate de que la URL del API en src/app/core/Services/defense.service.ts apunte a tu backend local o de Azure:
+
+Local: https://localhost:7001/api/defense
+
+Azure: https://zombie-defense-api.azurewebsites.net/api/defense
+
+Correr el servidor de desarrollo:
+
+Bash
 ng serve
-```
+Navega a http://localhost:4200/. La aplicación se recargará automáticamente si cambias algún archivo.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+📊 Funcionalidades Clave
+Simulación en Tiempo Real: Envío de parámetros al algoritmo de la mochila (Knapsack) en el backend.
 
-## Code scaffolding
+Historial Dinámico: Tabla de ejecuciones previas con ordenamiento automático por eficiencia.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Visualización de Errores: Manejo de estados de carga y errores de conexión con la base de datos SQL Server.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Comando de Campo: Recuerda que cada bala cuenta. ¡Buena suerte!
